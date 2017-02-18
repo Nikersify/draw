@@ -8,12 +8,22 @@ const sourcemaps = require('gulp-sourcemaps')
 const rename = require('gulp-rename')
 const vueify = require('vueify')
 
+let b = browserify('src/index.js', { 
+	cache: {},
+	debug: true,
+	packageCache: {}
+})
+
+let IGNORED = ['jquery', 'lodash', 'vue']
+for (let lib of IGNORED)
+	b.ignore(lib)
+
 gulp.task('js', () => {
-	return browserify('src/index.js', { debug: true })
+	return b
+		.transform(vueify)
 		.transform(babelify, {
 			presets: ['latest']
 		})
-		.transform(vueify)
 		.bundle()
 		.on('error', function (e) { 
 			console.log(e.message)
