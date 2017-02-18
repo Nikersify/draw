@@ -1,3 +1,4 @@
+const babelify = require('babelify')
 const browserify = require('browserify')
 const buffer = require('vinyl-buffer')
 const gulp = require('gulp')
@@ -5,10 +6,19 @@ const sass = require('gulp-sass')
 const source = require('vinyl-source-stream')
 const sourcemaps = require('gulp-sourcemaps')
 const rename = require('gulp-rename')
+const vueify = require('vueify')
 
 gulp.task('js', () => {
 	return browserify('src/index.js', { debug: true })
+		.transform(babelify, {
+			presets: ['latest']
+		})
+		.transform(vueify)
 		.bundle()
+		.on('error', function (e) { 
+			console.log(e.message)
+			this.emit('end')
+		})
 		.pipe(source('src/index.js'))
 		.pipe(rename('paint.js'))
 		.pipe(gulp.dest('static/'))

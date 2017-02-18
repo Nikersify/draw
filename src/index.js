@@ -1,4 +1,7 @@
-var $ = require('jquery')
-var Vue = require('vue')
+const $ = require('jquery')
+const Vue = require('vue')
+window._ = require('lodash')
 
-console.log('hi')
+// const Toolbar = require('./components/toolbar.vue')
+import Toolbar from './components/toolbar.vue'
+
