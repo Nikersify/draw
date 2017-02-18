@@ -1,0 +1,25 @@
+{
+  "name": "draw",
+  "version": "0.0.1",
+  "description": "collaborative drawing app in the browser",
+  "main": "app.js",
+  "author": "nikersify <nikersify@nikerino.com>",
+  "license": "MIT",
+  "dependencies": {
+    "browserify": "^14.1.0",
+    "del": "^2.2.2",
+    "express": "^4.14.1",
+    "gulp": "^3.9.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.4.1",
+    "jquery": "^3.1.1",
+    "lodash": "^4.17.4",
+    "pug": "^2.0.0-beta11",
+    "socket.io": "^1.7.3",
+    "socket.io-client": "^1.7.3",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "vue": "^2.1.10"
+  }
+}
