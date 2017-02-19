@@ -8,7 +8,8 @@
 </template>
 
 <script>
-const $ = require('jquery')
+import $ from 'jquery'
+import bus from '../bus'
 
 export default {
 	name: 'toolbar',
@@ -29,13 +30,11 @@ export default {
 		}
 	},
 	methods: {
-		onButtonClick: function (e) {
+		onButtonClick (e) {
 			const tool = $(e.target).data('tool')
 			this.toolSelected = tool
+			bus.$emit('tool-selected', tool)
 		}
-	},
-	mounted () {
-		console.log($(this.$el))
 	}
 }
 </script>

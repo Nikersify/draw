@@ -1,9 +1,8 @@
-const $ = require('jquery')
-const Vue = require('vue')
-window._ = require('lodash')
-
-// const Toolbar = require('./components/toolbar.vue')
+import Vue from 'vue'
 import App from './components/App.vue'
+
+import $ from 'jquery'
+window.$ = $
 
 let vm = new Vue({
 	el: '#app',
