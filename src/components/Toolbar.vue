@@ -2,7 +2,7 @@
 .toolbar
 	button(v-for='tool in tools'
 		v-bind:data-tool='tool.name'
-		v-bind:class='{ selected: toolSelected == tool.name}'
+		v-bind:class='{ selected: toolSelectedName == tool.name}'
 		v-on:click='onButtonClick')
 		i(:class='tool.icon')
 </template>
@@ -10,31 +10,64 @@
 <script>
 import $ from 'jquery'
 import bus from '../bus'
+import RectangleTool from '../tools/Rectangle'
 
 export default {
 	name: 'toolbar',
+	computed: {
+		toolSelectedName: function () {
+			if (this.toolSelected)
+				return this.toolSelected.name
+			else return null
+		}
+	},
 	data () {
 		return {
-			toolSelected: 'select',
+			toolSelected: null,
 			tools: [
-				{ name: 'select', icon: 'fa-mouse-pointer'},
-				{ name: 'hand', icon: 'fa-hand-paper-o'},
-				{ name: 'eraser', icon: 'fa-eraser'},
-				{ name: 'color', icon: 'fa-paint-brush'},
-				{ name: 'path', icon: 'fa-vine'},
-				{ name: 'line', icon: 'fa-rotate-90 fa-minus'},
-				{ name: 'rectangle', icon: 'fa-square'},
-				{ name: 'oval', icon: 'fa-circle'},
-				{ name: 'math', icon: 'fa-times'}
+				new RectangleTool()
+				// { name: 'select', icon: 'fa-mouse-pointer'},
+				// { name: 'hand', icon: 'fa-hand-paper-o'},
+				// { name: 'eraser', icon: 'fa-eraser'},
+				// { name: 'color', icon: 'fa-paint-brush'},
+				// { name: 'path', icon: 'fa-vine'},
+				// { name: 'line', icon: 'fa-rotate-90 fa-minus'},
+				// { name: 'rectangle', icon: 'fa-square'},
+				// { name: 'oval', icon: 'fa-circle'},
+				// { name: 'math', icon: 'fa-times'}
 			]
 		}
 	},
 	methods: {
 		onButtonClick (e) {
 			const tool = $(e.target).data('tool')
-			this.toolSelected = tool
-			bus.$emit('tool-selected', tool)
+			this.selectTool(tool)
+		},
+		selectTool (tool) {
+			for (const t of this.tools) {
+				if (t.name === tool) {
+					this.toolSelected = t
+					return true
+				}
+			}
+			return false
 		}
+	},
+	mounted () {
+		bus.$on('fabric-drag-start', (x, y) => {
+			if (this.toolSelected)
+				this.toolSelected.onDragStart(x, y)
+		})
+		bus.$on('fabric-drag-move', (x, y) => {
+			if (this.toolSelected)
+				this.toolSelected.onDragMove(x, y)
+		})
+		bus.$on('fabric-drag-finish', (x, y) => {
+			if (this.toolSelected)
+				this.toolSelected.onDragFinish(x, y)
+		})
+
+		this.selectTool('rectangle')
 	}
 }
 </script>

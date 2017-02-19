@@ -6,6 +6,7 @@ canvas.fabric
 import $ from 'jquery'
 import bus from '../bus'
 import RectangleObject from '../objects/Rectangle'
+import store from '../store'
 
 export default {
 	name: 'fabric',
@@ -17,7 +18,7 @@ export default {
 	data () {
 		return {
 			ctx: null,
-			objects: []
+			objects: store.objects
 		}
 	},
 
@@ -55,11 +56,30 @@ export default {
 		})
 
 		this.objects.push(rect)
+
+		$(this.$el).on('mousedown.e', (e) => {
+			bus.$emit('fabric-drag-start', e.offsetX, e.offsetY)
+
+			$(window).on('mousemove.e', (e) => {
+				bus.$emit('fabric-drag-move', e.offsetX, e.offsetY)
+			})
+
+			$(window).one('mouseup.e', (e) => {
+				bus.$emit('fabric-drag-finish', e.offsetX, e.offsetY)
+
+				$(window).off('mousemove.e')
+			})
+		})
+
+		bus.$on('fabric-do-redraw', this.redraw)
 	},
 
 	watch: {
-		objects: function (val, oldVal) {
-			this.redraw()
+		objects: {
+			handler: function (val, oldVal) {
+				this.redraw()
+			},
+			deep: true
 		}
 	}
 }
@@ -69,4 +89,5 @@ export default {
 .fabric
 	height: 100%
 	width: 100%
+	cursor: default
 </style>

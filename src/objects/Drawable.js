@@ -1,7 +1,5 @@
 class DrawableObject {
-	constructor (ctx) {
-		console.log('called', ctx)
-	}
+	constructor () {}
 
 	intersects (x, y) {
 		return false
