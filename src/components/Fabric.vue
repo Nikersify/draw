@@ -72,6 +72,16 @@ export default {
 		})
 
 		bus.$on('fabric-do-redraw', this.redraw)
+
+		// temporary
+		$(window).on('mousemove', (e) => {
+			for (const object of this.objects) {
+				if (object.intersects(e.offsetX, e.offsetY))
+					object.opts.color = 'red'
+				else
+					object.opts.color = 'blue'
+			}
+		})
 	},
 
 	watch: {

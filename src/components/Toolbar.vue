@@ -47,10 +47,10 @@ export default {
 			for (const t of this.tools) {
 				if (t.name === tool) {
 					this.toolSelected = t
-					return true
+					return this.toolSelected
 				}
 			}
-			return false
+			return null
 		}
 	},
 	mounted () {
