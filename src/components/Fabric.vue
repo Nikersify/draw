@@ -6,6 +6,7 @@ canvas.fabric
 import $ from 'jquery'
 import bus from '../bus'
 import RectangleObject from '../objects/Rectangle'
+import PathObject from '../objects/Path'
 import store from '../store'
 
 export default {
@@ -56,6 +57,18 @@ export default {
 		})
 
 		this.objects.push(rect)
+
+		const path = new PathObject({
+			points: [
+				{ x: 300, y: 300 },
+				{ x: 350, y: 350 },
+				{ x: 400, y: 200 }
+			],
+			color: 'green',
+			width: 10
+		})
+
+		this.objects.push(path)
 
 		$(this.$el).on('mousedown.e', (e) => {
 			bus.$emit('fabric-drag-start', e.offsetX, e.offsetY)

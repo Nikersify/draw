@@ -5,6 +5,7 @@ import store from '../store'
 class RectangleTool extends Tool {
 	constructor () {
 		super()
+
 		this.name = 'rectangle'
 		this.icon = 'fa-square'
 	}
