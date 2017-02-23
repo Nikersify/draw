@@ -15,9 +15,9 @@ vueify.compiler.applyConfig({
 })
 
 gulp.task('js', () => {
-	return browserify('src/index.js', { 
+	return browserify('src/index.js', {
 		cache: {},
-		debug: false,
+		debug: true,
 		noParse: ['jquery', 'lodash'],
 		packageCache: {}
 	})

@@ -4,6 +4,7 @@ canvas.fabric
 
 <script>
 import $ from 'jquery'
+import _ from 'lodash'
 import bus from '../bus'
 import RectangleObject from '../objects/Rectangle'
 import PathObject from '../objects/Path'
@@ -72,6 +73,12 @@ export default {
 
 		$(this.$el).on('mousedown.e', (e) => {
 			bus.$emit('fabric-drag-start', e.offsetX, e.offsetY)
+
+			const bussy = (e) => {
+				bus.$emit('fabric-drag-move', e.offsetX, e.offsetY)
+			}
+
+			// $(window).on('mousemove.e', _.throttle(bussy, 1000/144))
 
 			$(window).on('mousemove.e', (e) => {
 				bus.$emit('fabric-drag-move', e.offsetX, e.offsetY)

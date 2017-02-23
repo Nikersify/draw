@@ -12,6 +12,7 @@ import $ from 'jquery'
 import bus from '../bus'
 import RectangleTool from '../tools/Rectangle'
 import PathTool from '../tools/Path'
+import SelectTool from '../tools/Select'
 
 export default {
 	name: 'toolbar',
@@ -26,6 +27,7 @@ export default {
 		return {
 			toolSelected: null,
 			tools: [
+				new SelectTool(),
 				new RectangleTool(),
 				new PathTool()
 				// { name: 'select', icon: 'fa-mouse-pointer'},

@@ -32,9 +32,7 @@ class RectangleTool extends Tool {
 		this.ref.opts.height = y - this.ref.opts.y
 	}
 
-	onDragFinish (x, y) {
-		this.ref = null
-	}
+	onDragFinish (x, y) {}
 }
 
 export default RectangleTool

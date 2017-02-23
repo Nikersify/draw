@@ -28,6 +28,7 @@ class PathTool extends Tool {
 	}
 
 	onDragMove (x, y) {
+		console.log(this)
 		const p = this.ref.points[this.ref.points.length - 1]
 		let d = Math.sqrt(Math.pow(p.x - x, 2) + Math.pow(p.y - y, 2))
 		if (d > 3)
@@ -37,9 +38,7 @@ class PathTool extends Tool {
 			})
 	}
 
-	onDragFinish (x, y) {
-		this.ref = null
-	}
+	onDragFinish (x, y) {}
 }
 
 export default PathTool
